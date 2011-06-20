@@ -39,7 +39,7 @@ module TicketMaster::Provider
       end
 
       def id
-        self[:id].to_i
+        @system_data[:client].id
       end
 
       def self.create(*options)
