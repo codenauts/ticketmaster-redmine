@@ -11,9 +11,12 @@ module RedmineAPI
       @username = username
       @password = password
       @server = server
+      
       self::Base.user = username
       self::Base.password = password
       self::Base.site = server
+      
+      self::Base.ssl_options = { :verify_mode  => OpenSSL::SSL::VERIFY_PEER }
     end
 
     def resources
