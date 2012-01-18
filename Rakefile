@@ -9,7 +9,7 @@ begin
     gem.description = %Q{Allows ticketmaster to interact with Your System.}
     gem.email = "rafael@hybridgroup.com"
     gem.homepage = "http://github.com/hybridgroup/ticketmaster-redmine"
-    gem.authors = ["Rafael George"]
+    gem.authors = ["Rafael George", "Thomas Dohmke"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
     gem.add_dependency "ticketmaster", ">= 0.1.0"
     gem.add_dependency "activesupport", ">= 2.3.2"

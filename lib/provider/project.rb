@@ -6,6 +6,20 @@ module TicketMaster::Provider
     class Project < TicketMaster::Provider::Base::Project
       # declare needed overloaded methods here
       API = RedmineAPI::Project      
+      LIMIT = 100
+      
+      def self.find_for_page(page)
+        API.find(:all, :params => { :limit => LIMIT, :page => page })
+      end
+      
+      def self.all
+        projects = []
+        5.times do |page|
+          projects += find_for_page(page + 1)
+          break if projects.count < (page + 1) * LIMIT
+        end
+        projects
+      end
       
       # copy from this.copy(that) copies that into this
       def copy(project)

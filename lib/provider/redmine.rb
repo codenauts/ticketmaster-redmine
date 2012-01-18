@@ -20,5 +20,12 @@ module TicketMaster::Provider
       RedmineAPI.authenticate(auth.server, auth.username, auth.password)
     end
 
+    def projects(*options)
+      if options.length == 0
+        Project.all
+      else
+        easy_finder(@provider::Project, :all, options)
+      end        
+    end
   end
 end
