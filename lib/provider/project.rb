@@ -7,9 +7,29 @@ module TicketMaster::Provider
       # declare needed overloaded methods here
       API = RedmineAPI::Project      
       LIMIT = 100
-      
+
+      def initialize(*object) 
+        if object.first
+          object = object.first
+          unless object.is_a? Hash
+            hash = {:id => object.id,
+                    :name => object.name,
+                    :description => object.description,
+                    :identifier => object.identifier,
+                    :created_at => object.created_on,
+                    :updated_at => object.updated_on}
+
+          else
+            hash = object
+          end
+          super hash
+        end
+      end
+            
       def self.find_for_page(page)
-        API.find(:all, :params => { :limit => LIMIT, :page => page })
+        API.find(:all, :params => { :limit => LIMIT, :page => page }).collect do |project|
+          Project.new project
+        end
       end
       
       def self.all
@@ -53,10 +73,6 @@ module TicketMaster::Provider
         rescue
           []
         end
-      end
-
-      def ticket!(*options)
-        TicketMaster::Provider::Redmine::Ticket.open(self.id, options.first)
       end
     end
   end
