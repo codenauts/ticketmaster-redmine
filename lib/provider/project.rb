@@ -16,6 +16,7 @@ module TicketMaster::Provider
                     :name => object.name,
                     :description => object.description,
                     :identifier => object.identifier,
+                    :parent => (object.respond_to?(:parent) && object.parent.present? ? object.parent.id : nil),
                     :created_at => object.created_on,
                     :updated_at => object.updated_on}
 
